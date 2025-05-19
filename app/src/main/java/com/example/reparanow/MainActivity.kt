@@ -4,13 +4,12 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import com.example.reparanow.ui.screens.LoginScreen
 import com.example.reparanow.ui.theme.ReparaNowTheme
 
 class MainActivity : ComponentActivity() {
@@ -19,29 +18,25 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             ReparaNowTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
+                ComposeMultiScreenApp()
                 }
             }
         }
     }
-}
+
+
+
 
 @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
+fun ComposeMultiScreenApp(){
+    val navController = rememberNavController()
+    SetupNavGraph(navController = navController)
 }
-
-@Preview(showBackground = true)
 @Composable
-fun GreetingPreview() {
-    ReparaNowTheme {
-        Greeting("Android")
+fun SetupNavGraph(navController: NavHostController){
+    //startDestinations marks which screen is going to open at launch
+    NavHost(navController = navController, startDestination = "loginScreen"){
+        //add route name for every screen
+        composable("loginScreen"){ LoginScreen(navController) }
     }
 }
