@@ -10,6 +10,9 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.reparanow.ui.screens.LoginScreen
+import com.example.reparanow.ui.screens.MainScreen
+import com.example.reparanow.ui.screens.ProfileScreen
+import com.example.reparanow.ui.screens.RegisterScreen
 import com.example.reparanow.ui.theme.ReparaNowTheme
 
 class MainActivity : ComponentActivity() {
@@ -38,5 +41,8 @@ fun SetupNavGraph(navController: NavHostController){
     NavHost(navController = navController, startDestination = "loginScreen"){
         //add route name for every screen
         composable("loginScreen"){ LoginScreen(navController) }
+        composable("registerScreen"){ RegisterScreen(navController) }
+        composable("profScreen"){ ProfileScreen(navController) }
+        composable("mainScreen"){ MainScreen(navController) }
     }
 }
