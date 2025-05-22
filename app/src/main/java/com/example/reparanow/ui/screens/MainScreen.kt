@@ -146,7 +146,7 @@ fun Bar2(navController: NavController){
         )
         NavigationBarItem(
             selected = false,
-            onClick = { navController.navigate("profileScreen") },
+            onClick = { navController.navigate("profScreen") },
             icon = {
                 Icon(
                     imageVector = Icons.Filled.Person,
