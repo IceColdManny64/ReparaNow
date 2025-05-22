@@ -5,6 +5,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
@@ -15,6 +16,8 @@ import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowOutward
+import androidx.compose.material.icons.filled.ArrowRight
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -193,6 +196,17 @@ fun ProfileScreen(navController: NavHostController) {
                                     style = MaterialTheme.typography.caption.copy(fontWeight = FontWeight.Medium),
                                     modifier = Modifier.clickable { /* acción ver respuestas */ }
                                 )
+                            }
+
+                            Column(modifier = Modifier,
+                                verticalArrangement = Arrangement.SpaceEvenly,
+                                horizontalAlignment = Alignment.CenterHorizontally
+                            ) {
+                                Icon(
+                                    Icons.Filled.ArrowOutward,
+                                    contentDescription = "Ver respuestas",
+                                    tint = Color(0xFFFF9800),
+                                    modifier = Modifier.size(30.dp).clickable { /* acción ver respuestas */ })
                             }
                         }
                     }
