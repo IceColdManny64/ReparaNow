@@ -17,7 +17,6 @@ import androidx.compose.material.TextField
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Brush
 import androidx.compose.material.icons.filled.Build
-import androidx.compose.material.icons.filled.CalendarViewMonth
 import androidx.compose.material.icons.filled.ElectricBolt
 import androidx.compose.material.icons.filled.EnergySavingsLeaf
 import androidx.compose.material.icons.filled.Home
