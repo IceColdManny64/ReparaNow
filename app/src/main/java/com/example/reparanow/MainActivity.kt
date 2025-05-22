@@ -9,6 +9,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.reparanow.ui.screens.AccountSettingsScreen
 import com.example.reparanow.ui.screens.LoginScreen
 import com.example.reparanow.ui.screens.MainScreen
 import com.example.reparanow.ui.screens.MenuScreen
@@ -17,6 +18,7 @@ import com.example.reparanow.ui.screens.ProfileScreen
 import com.example.reparanow.ui.screens.RegisterScreen
 import com.example.reparanow.ui.screens.SearchScreen
 import com.example.reparanow.ui.screens.ServiceScreen
+import com.example.reparanow.ui.screens.SupportChatScreen
 import com.example.reparanow.ui.theme.ReparaNowTheme
 
 class MainActivity : ComponentActivity() {
@@ -30,9 +32,6 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
-
-
-
 
 @Composable
 fun ComposeMultiScreenApp(){
@@ -57,5 +56,7 @@ fun SetupNavGraph(navController: NavHostController){
                 ProfessionalScreen(profesionalId, navController)
             }
         }
+        composable("AccountSettingsScreen"){ AccountSettingsScreen(navController) }
+        composable("SupportChatScreen"){ SupportChatScreen(navController) }
     }
 }

@@ -18,15 +18,12 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Button
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.Text
-import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Menu
-import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
@@ -43,9 +40,14 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.reparanow.R
+import androidx.compose.ui.platform.LocalConfiguration
+import android.content.res.Configuration
 
 @Composable
 fun MainScreen(navController: NavController) {
+    val configuration = LocalConfiguration.current
+    val isLandscape = configuration.orientation == Configuration.ORIENTATION_LANDSCAPE
+
     Scaffold(
         topBar = { Bar(navController) },
         bottomBar = { Bar2(navController) }
@@ -54,23 +56,42 @@ fun MainScreen(navController: NavController) {
             modifier = Modifier
                 .background(MaterialTheme.colorScheme.surface)
                 .padding(padding)
-                .fillMaxSize(),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
+                .fillMaxSize()
         ) {
             Text(
                 text = "ReparaNow!",
                 fontSize = 28.sp,
                 fontWeight = FontWeight.Bold,
                 color = Color(0xFF1565C0),
-                modifier = Modifier.padding(bottom = 24.dp)
+                modifier = Modifier
+                    .align(Alignment.CenterHorizontally)
+                    .padding(vertical = 24.dp)
             )
 
-            SectionBlock("Recomendaciones", profesionales = sampleProfesionales, navController)
-            Spacer(modifier = Modifier.height(40.dp))
-            SectionBlock("Populares", profesionales = sampleProfesionales.shuffled(), navController)
-            Spacer(modifier = Modifier.height(40.dp))
-            SectionBlock("Mejores reseñas", profesionales = sampleProfesionales.shuffled(), navController)
+            if (isLandscape) {
+                Row(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(horizontal = 12.dp),
+                    horizontalArrangement = Arrangement.SpaceEvenly,
+                    verticalAlignment = Alignment.Top
+                ) {
+                    SectionBlock("Recomendaciones", profesionales = sampleProfesionales, navController)
+                    SectionBlock("Populares", profesionales = sampleProfesionales.shuffled(), navController)
+                    SectionBlock("Mejores reseñas", profesionales = sampleProfesionales.shuffled(), navController)
+                }
+            } else {
+                Column(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    SectionBlock("Recomendaciones", profesionales = sampleProfesionales, navController)
+                    Spacer(modifier = Modifier.height(40.dp))
+                    SectionBlock("Populares", profesionales = sampleProfesionales.shuffled(), navController)
+                    Spacer(modifier = Modifier.height(40.dp))
+                    SectionBlock("Mejores reseñas", profesionales = sampleProfesionales.shuffled(), navController)
+                }
+            }
         }
     }
 }
@@ -144,21 +165,8 @@ fun Bar2(navController: NavController){
             },
             label = { Text("Menú") }
         )
-        NavigationBarItem(
-            selected = false,
-            onClick = { navController.navigate("profScreen") },
-            icon = {
-                Icon(
-                    imageVector = Icons.Filled.Person,
-                    contentDescription = "Perfil"
-                )
-            },
-            label = { Text("Perfil") }
-        )
     }
 }
-
-
 
 @Composable
 fun SectionBlock(title: String, profesionales: List<Profesional>, navController: NavController) {
@@ -185,15 +193,15 @@ fun SectionBlock(title: String, profesionales: List<Profesional>, navController:
                     horizontalAlignment = Alignment.CenterHorizontally,
                     modifier = Modifier
                         .clickable {
-                            navController.navigate("professional/${profesional.id}")
+                            navController.navigate("profScreen")
                         }
                         .width(100.dp)
                 ) {
                     IconButton(
-                        onClick = {navController.navigate("professional/${profesional.id}")}
+                        onClick = { navController.navigate("profScreen") }
                     ) {
                         Image(
-                            painter = painterResource(id = profesional.imagen),
+                            painter = painterResource(R.drawable.profesionista),
                             contentDescription = null,
                             contentScale = ContentScale.Crop,
                             modifier = Modifier
