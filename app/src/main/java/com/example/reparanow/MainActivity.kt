@@ -16,6 +16,7 @@ import com.example.reparanow.ui.screens.ProfessionalScreen
 import com.example.reparanow.ui.screens.ProfileScreen
 import com.example.reparanow.ui.screens.RegisterScreen
 import com.example.reparanow.ui.screens.SearchScreen
+import com.example.reparanow.ui.screens.ServiceScreen
 import com.example.reparanow.ui.theme.ReparaNowTheme
 
 class MainActivity : ComponentActivity() {
@@ -44,6 +45,7 @@ fun SetupNavGraph(navController: NavHostController){
     NavHost(navController = navController, startDestination = "loginScreen"){
         //add route name for every screen
         composable("loginScreen"){ LoginScreen(navController) }
+        composable("servScreen"){ ServiceScreen(navController) }
         composable("registerScreen"){ RegisterScreen(navController) }
         composable("profScreen"){ ProfileScreen(navController) }
         composable("mainScreen"){ MainScreen(navController) }

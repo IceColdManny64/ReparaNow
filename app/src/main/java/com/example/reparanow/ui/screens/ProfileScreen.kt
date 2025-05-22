@@ -5,8 +5,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -15,13 +13,13 @@ import androidx.compose.material.Card
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowOutward
-import androidx.compose.material.icons.filled.ArrowRight
-import androidx.compose.material.icons.filled.Star
+import androidx.compose.material.TextField
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.runtime.Composable
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowOutward
+import androidx.compose.material.icons.filled.Star
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -39,12 +37,13 @@ fun ProfileScreen(navController: NavHostController) {
     Box(
         modifier = Modifier
             .fillMaxSize()
+            .statusBarsPadding()
+            .navigationBarsPadding()
             .background(
                 brush = Brush.verticalGradient(
                     colors = listOf(Color(0xFF1976D2), Color(0xFF42A5F5))
                 )
             )
-            .statusBarsPadding()
             .padding(16.dp)
     ) {
         Column(
@@ -142,7 +141,7 @@ fun ProfileScreen(navController: NavHostController) {
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            // Sección de comentarios (rediseñada)
+            // Sección de comentarios
             Text(
                 text = "Comentarios",
                 style = MaterialTheme.typography.subtitle1.copy(
@@ -166,7 +165,6 @@ fun ProfileScreen(navController: NavHostController) {
                                 .padding(12.dp),
                             verticalAlignment = Alignment.Top
                         ) {
-                            // Avatar del usuario
                             Image(
                                 painter = painterResource(R.drawable.profile),
                                 contentDescription = "Avatar usuario",
@@ -176,9 +174,7 @@ fun ProfileScreen(navController: NavHostController) {
                                     .background(Color.LightGray),
                                 contentScale = ContentScale.Crop
                             )
-
                             Spacer(modifier = Modifier.width(12.dp))
-
                             Column(modifier = Modifier.weight(1f)) {
                                 Text(
                                     text = "Usuario ${index + 1}",
@@ -197,20 +193,37 @@ fun ProfileScreen(navController: NavHostController) {
                                     modifier = Modifier.clickable { /* acción ver respuestas */ }
                                 )
                             }
-
-                            Column(modifier = Modifier,
-                                verticalArrangement = Arrangement.SpaceEvenly,
-                                horizontalAlignment = Alignment.CenterHorizontally
-                            ) {
-                                Icon(
-                                    Icons.Filled.ArrowOutward,
-                                    contentDescription = "Ver respuestas",
-                                    tint = Color(0xFFFF9800),
-                                    modifier = Modifier.size(30.dp).clickable { /* acción ver respuestas */ })
-                            }
+                            Icon(
+                                Icons.Default.ArrowOutward,
+                                contentDescription = "Ver respuestas",
+                                tint = Color(0xFFFF9800),
+                                modifier = Modifier
+                                    .size(30.dp)
+                                    .clickable { /* acción ver respuestas */ }
+                            )
                         }
                     }
                 }
+            }
+
+            Spacer(modifier = Modifier.height(12.dp))
+            // Campo para agregar nuevo comentario
+            var newComment by remember { mutableStateOf("") }
+            TextField(
+                value = newComment,
+                onValueChange = { newComment = it },
+                placeholder = { Text("Escribe un nuevo comentario...") },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .background(Color.White, RoundedCornerShape(8.dp))
+            )
+            Spacer(modifier = Modifier.height(8.dp))
+            Button(
+                onClick = { /* acción enviar comentario */ },
+                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF9800)),
+                modifier = Modifier.align(Alignment.End)
+            ) {
+                Text(text = "Enviar", color = Color.White, style = MaterialTheme.typography.button)
             }
 
             Spacer(modifier = Modifier.height(16.dp))
@@ -239,7 +252,7 @@ fun ProfileScreen(navController: NavHostController) {
 
             // Botón de contactar
             Button(
-                onClick = { /* Acción futura */ },
+                onClick = {navController.navigate("servScreen")},
                 colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF9800)),
                 modifier = Modifier
                     .fillMaxWidth()

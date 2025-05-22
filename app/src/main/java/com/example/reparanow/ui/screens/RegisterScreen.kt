@@ -3,7 +3,9 @@ package com.example.reparanow.ui.screens
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.MaterialTheme
@@ -26,29 +28,36 @@ fun RegisterScreen(navController: NavHostController) {
             .fillMaxSize()
             .background(
                 brush = Brush.verticalGradient(
-                    colors = listOf(Color(0xFF1976D2), Color(0xFF42A5F5)) // Azul degradado
+                    colors = listOf(Color(0xFF1976D2), Color(0xFF42A5F5))
                 )
             )
+            .statusBarsPadding()
+            .navigationBarsPadding()
     ) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(24.dp),
-            verticalArrangement = Arrangement.Center,
+                .padding(horizontal = 24.dp)
+                .verticalScroll(rememberScrollState()),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
 
-            Image(painter = painterResource(R.drawable.reparanow_bg), contentDescription = "")
+            Spacer(modifier = Modifier.height(48.dp))
+
+            Image(
+                painter = painterResource(R.drawable.reparanow_bg),
+                contentDescription = null
+            )
 
             Text(
                 text = "Crear cuenta",
-                style = MaterialTheme.typography.body2.copy(
+                style = MaterialTheme.typography.h5.copy(
                     color = Color.White,
                     fontWeight = FontWeight.Bold
                 )
             )
 
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(8.dp))
 
             Text(
                 text = "Regístrate para continuar",
@@ -57,6 +66,7 @@ fun RegisterScreen(navController: NavHostController) {
 
             Spacer(modifier = Modifier.height(32.dp))
 
+            // Nombre completo
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -70,6 +80,7 @@ fun RegisterScreen(navController: NavHostController) {
 
             Spacer(modifier = Modifier.height(16.dp))
 
+            // Correo electrónico
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -83,6 +94,7 @@ fun RegisterScreen(navController: NavHostController) {
 
             Spacer(modifier = Modifier.height(16.dp))
 
+            // Contraseña
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -96,9 +108,10 @@ fun RegisterScreen(navController: NavHostController) {
 
             Spacer(modifier = Modifier.height(32.dp))
 
+            // Botón de registro
             Button(
                 onClick = { navController.navigate("mainScreen") },
-                colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xFFFF9800)), // Naranja
+                colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xFFFF9800)),
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(50.dp),
@@ -107,9 +120,16 @@ fun RegisterScreen(navController: NavHostController) {
                 Text(
                     text = "Registrarse",
                     color = Color.White,
-                    style = MaterialTheme.typography.body1.copy(fontWeight = FontWeight.Bold)
+                    style = MaterialTheme.typography.button.copy(fontWeight = FontWeight.Bold)
                 )
             }
+
+            // Espaciado final para la barra de navegación
+            Spacer(
+                modifier = Modifier
+                    .height(WindowInsets.navigationBars.asPaddingValues().calculateBottomPadding())
+            )
         }
     }
 }
+
