@@ -124,7 +124,7 @@ fun Bar2(navController: NavController){
     NavigationBar {
         NavigationBarItem(
             selected = false,
-            onClick = { navController.navigate("main") },
+            onClick = { navController.navigate("mainScreen") },
             icon = {
                 Icon(
                     imageVector = Icons.Filled.Home,
@@ -135,7 +135,7 @@ fun Bar2(navController: NavController){
         )
         NavigationBarItem(
             selected = false,
-            onClick = { navController.navigate("menu") },
+            onClick = { navController.navigate("menuScreen") },
             icon = {
                 Icon(
                     imageVector = Icons.Filled.Menu,
@@ -146,7 +146,7 @@ fun Bar2(navController: NavController){
         )
         NavigationBarItem(
             selected = false,
-            onClick = { navController.navigate("profile") },
+            onClick = { navController.navigate("profileScreen") },
             icon = {
                 Icon(
                     imageVector = Icons.Filled.Person,
