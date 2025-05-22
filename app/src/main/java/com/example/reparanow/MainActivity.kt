@@ -12,6 +12,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.reparanow.ui.screens.LoginScreen
 import com.example.reparanow.ui.screens.MainScreen
 import com.example.reparanow.ui.screens.MenuScreen
+import com.example.reparanow.ui.screens.ProfessionalScreen
 import com.example.reparanow.ui.screens.ProfileScreen
 import com.example.reparanow.ui.screens.RegisterScreen
 import com.example.reparanow.ui.screens.SearchScreen
@@ -48,5 +49,11 @@ fun SetupNavGraph(navController: NavHostController){
         composable("mainScreen"){ MainScreen(navController) }
         composable("menuScreen"){ MenuScreen(navController) }
         composable("searchScreen"){ SearchScreen(navController) }
+        composable("professional/{profesionalId}") { backStackEntry ->
+            val profesionalId = backStackEntry.arguments?.getString("profesionalId")?.toIntOrNull()
+            if (profesionalId != null) {
+                ProfessionalScreen(profesionalId, navController)
+            }
+        }
     }
 }
